@@ -24,6 +24,10 @@ class ChooseMultiple:
     Depending on the horizontal space, long option texts
     are truncated (for display only).
 
+    Number of columns can be determined automatically
+    by providing parameter columns=0.
+    Less than 20% of the options will be truncated then.
+
     Methods:
         __init__()
         display_options()
@@ -44,7 +48,6 @@ class ChooseMultiple:
             digits (int):      max length of numbers    optional, default 2
         """
         self.from_list = from_list
-        self.columns = columns
 
         self.option = {
             num: opt for num, opt in enumerate(from_list, start=1)
@@ -53,9 +56,10 @@ class ChooseMultiple:
         self.line_length = line_length
         self.digits = digits
         self.num_length = self.digits + 3  # space for numbers, "|" and ": "
-        self.opt_length = (self.line_length - self.num_length*columns) // columns
+        self.columns = columns if columns else self.recommend_columns()
+        self.opt_length = (self.line_length - self.num_length*self.columns) // self.columns
         # max available space to display one option
-        self.rows = len(from_list) // columns + 1  # always round up
+        self.rows = len(from_list) // self.columns + 1  # always round up
 
     def display_options(self):
         """
@@ -124,14 +128,33 @@ class ChooseMultiple:
         total_elem = len(self.option)
         vals = [val for val in self.option.values()]
         lens = sorted([len(opt) for opt in vals])
+        rec_cols = self.recommend_columns()
+        rows = len(self.option) // self.columns + 1
 
         print("Columns:", self.columns)
-        print("  Width of a column:  ", self.line_length // self.columns)
-        print("  Space for option:   ", self.opt_length)
-        print("  Columns recommended:")
+        print("Rows:   ", rows)
+        print("  Width of a column:", self.line_length // self.columns)
+        print("  Space for option: ", self.opt_length)
+        print("  Recommended:      ", rec_cols, "columns with", len(self.option)//rec_cols+1, "rows")
 
         print("Number of options:", total_elem)
         print("  Options too long: {} ({}%)".format(*too_long()))
         print("  Length of longest: {}".format(max(lens)))
         print("  Avg. length of longest 20%:", avg_length_longest())
+
+    def recommend_columns(self):
+        """
+        Return number of columns so that only 20% of the option texts would be truncated.
+        :return:
+        """
+        def percentage():
+            space_avail = (self.line_length - c*self.num_length) // c
+            num_trunced = len([val for val in self.option.values() if len(val) > space_avail])
+            pct = num_trunced / len(self.option)
+            return pct
+
+        c = 1
+        while percentage() < 0.2:
+            c += 1
+        return c-1 if c else 1
 

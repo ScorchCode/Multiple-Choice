@@ -24,6 +24,9 @@ A large number of options can be displayed as columns in order to still fit on s
 Long option text will be truncated though. The more columns, the more gets truncated.
 See `example_columns.py` for an example.
 
+A tradeoff number of columns can be defined by providing parameter `columns=0`.
+Less than 20% of the options will be truncated then.
+
 See docstrings for more parameters.
 ### Returns:
 `list`: A list of chosen elements from from_list
