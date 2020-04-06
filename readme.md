@@ -33,6 +33,9 @@ See docstrings for more parameters.
 
 When nothing is entered (empty string), an empty list is returned.
 # Change Log
+## 2020/04/06
+- add info() (for developer)
+- add recommended number of columns
 ## 2020/04/05
 - change function to class
 - separate input/output from logic

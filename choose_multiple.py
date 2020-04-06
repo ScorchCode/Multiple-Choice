@@ -33,6 +33,7 @@ class ChooseMultiple:
         display_options()
         get_choices()
         info()
+        recommended_columns()
     """
 
     def __init__(self,
@@ -41,6 +42,12 @@ class ChooseMultiple:
                  line_length=79,
                  digits=2):
         """
+        columns=0 applies a recommended nuber of columns.
+        Less than 20% of the option texts will be truncated then.
+
+        digits reserves space to display numbering.
+        digits=2 implies a max numbering of 99.
+
         Parameters:
             from_list (list):  A list to chose from     mandatory
             columns (int):     Number of columns        optional, default 1
