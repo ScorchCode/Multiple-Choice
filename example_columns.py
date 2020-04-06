@@ -2,7 +2,11 @@ from choose_multiple import ChooseMultiple
 """
 Extended example usage of the ChooseMultiple class
 
-with lots of options and # of columns set to 3.
+Starting with some figures to assess how the 
+options fit into the columns.
+Followed by user interface:
+Lots of options to chose from
+and # of columns set to 3.
 """
 
 
@@ -15,9 +19,12 @@ sketch = [
 
 cm = ChooseMultiple(sketch, columns=3)
 
+print("Developer: How will text fit into columns?")
+cm.info()
+input("ENTER to show output presented to user")
+
 print("\nPick your favourites\n")
 cm.display_options()
-cm.info()
 my_choice = cm.get_choices(
     in_prompt="\nMake your choice: ",
     on_bad_number="Bad input, probably not a number",

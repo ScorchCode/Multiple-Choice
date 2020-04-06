@@ -110,18 +110,28 @@ class ChooseMultiple:
 
     def info(self):
         """Display derived information."""
+        def avg_length_longest():
+            num_longest = total_elem // 5 * 4  # 80% of elements
+            sort_long_20 = lens[num_longest:]
+            return sum(sort_long_20) // len(sort_long_20)
+            # return sum([len(opt) for opt in vals]) // len(vals)
+
+        def too_long():
+            tl = len([lo for lo in vals if len(lo) > self.opt_length])
+            tlp = int(tl / total_elem * 100)
+            return tl, tlp
+
         total_elem = len(self.option)
         vals = [val for val in self.option.values()]
-        too_long = len([lo for lo in vals if len(lo) > self.opt_length])
-
-        print("List of options")
-        print("  Number of elements:", total_elem)
-        print("  Length of longest:", max([len(opt) for opt in vals]))
+        lens = sorted([len(opt) for opt in vals])
 
         print("Columns:", self.columns)
-        print("  Width of a column:", self.line_length // self.columns)
-        print("  Space for option:", self.opt_length)
-        print(
-            "  Options exceeding space:", too_long,
-            "(" + str(int(too_long / total_elem * 100)) + "%)"
-        )
+        print("  Width of a column:  ", self.line_length // self.columns)
+        print("  Space for option:   ", self.opt_length)
+        print("  Columns recommended:")
+
+        print("Number of options:", total_elem)
+        print("  Options too long: {} ({}%)".format(*too_long()))
+        print("  Length of longest: {}".format(max(lens)))
+        print("  Avg. length of longest 20%:", avg_length_longest())
+
