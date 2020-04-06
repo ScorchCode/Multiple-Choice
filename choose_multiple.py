@@ -125,7 +125,6 @@ class ChooseMultiple:
             num_longest = total_elem // 5 * 4  # 80% of elements
             sort_long_20 = lens[num_longest:]
             return sum(sort_long_20) // len(sort_long_20)
-            # return sum([len(opt) for opt in vals]) // len(vals)
 
         def too_long():
             tl = len([lo for lo in vals if len(lo) > self.opt_length])
@@ -136,10 +135,9 @@ class ChooseMultiple:
         vals = [val for val in self.option.values()]
         lens = sorted([len(opt) for opt in vals])
         rec_cols = self.recommend_columns()
-        rows = len(self.option) // self.columns + 1
 
         print("Columns:", self.columns)
-        print("Rows:   ", rows)
+        print("Rows:   ", self.rows)
         print("  Width of a column:", self.line_length // self.columns)
         print("  Space for option: ", self.opt_length)
         print("  Recommended:      ", rec_cols, "columns with", len(self.option)//rec_cols+1, "rows")
@@ -164,4 +162,3 @@ class ChooseMultiple:
         while percentage() < 0.2:
             c += 1
         return c-1 if c else 1
-
