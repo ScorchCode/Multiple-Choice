@@ -1,19 +1,24 @@
 # choose_multiple
 This module lets you choose multiple elements of a given list.
 
+List elements are numbered automatically and presented in columns if needed.
+
 # Manual
 ## User
 Input accepts space separated numbers in the range of the list's length.
 
 ## Developer
-`chose_multiple` is for console only.
+`chose_multiple` is for Python 3.6+ , console only.
 
 ### Parameters:
-- `from_list (list)`: A list to chose from. 
-Items of the `from_list` must be printable.
-`str` is the obvious type to use, but it works with any type that has a `__str__` method.
+Instantiation of `ChooseMultiple` accepts parameters, the most important of which are 
 
-- `columns (int)`: Number of columns to display. The (default) single column display has a slightly simplified design.
+- `from_list (list)`: A list to chose from. 
+
+- `columns (int)`: Number of columns to display.
+
+Elements of the `from_list` must be printable.
+`str` is the obvious type to use, but it works with any type that has a `__str__` method.
 
 A large number of options can be displayed as columns in order to still fit on screen without scrolling.
 Long option text will be truncated though. The more columns, the more gets truncated.

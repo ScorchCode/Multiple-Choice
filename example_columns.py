@@ -20,7 +20,7 @@ cm.display_options()
 my_choice = cm.get_choices(
     in_prompt="\nMake your choice: ",
     on_bad_number="Bad input, probably not a number",
-    on_bad_index="Bad option, probably too high"
+    on_bad_index="Bad number, probably too high"
 )
 
 if my_choice:
