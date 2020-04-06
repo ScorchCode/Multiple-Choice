@@ -17,6 +17,7 @@ cm = ChooseMultiple(sketch, columns=3)
 
 print("\nPick your favourites\n")
 cm.display_options()
+cm.info()
 my_choice = cm.get_choices(
     in_prompt="\nMake your choice: ",
     on_bad_number="Bad input, probably not a number",

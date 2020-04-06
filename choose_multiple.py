@@ -28,6 +28,7 @@ class ChooseMultiple:
         __init__()
         display_options()
         get_choices()
+        info()
     """
 
     def __init__(self,
@@ -46,7 +47,7 @@ class ChooseMultiple:
         self.columns = columns
 
         self.option = {
-            num:opt for num, opt in enumerate(from_list, start=1)
+            num: opt for num, opt in enumerate(from_list, start=1)
         }
 
         self.line_length = line_length
@@ -107,3 +108,20 @@ class ChooseMultiple:
             else:
                 return choice
 
+    def info(self):
+        """Display derived information."""
+        total_elem = len(self.option)
+        vals = [val for val in self.option.values()]
+        too_long = len([lo for lo in vals if len(lo) > self.opt_length])
+
+        print("List of options")
+        print("  Number of elements:", total_elem)
+        print("  Length of longest:", max([len(opt) for opt in vals]))
+
+        print("Columns:", self.columns)
+        print("  Width of a column:", self.line_length // self.columns)
+        print("  Space for option:", self.opt_length)
+        print(
+            "  Options exceeding space:", too_long,
+            "(" + str(int(too_long / total_elem * 100)) + "%)"
+        )
